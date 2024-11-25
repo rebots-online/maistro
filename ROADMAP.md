@@ -50,6 +50,10 @@
 ## Future Vision
 
 ### AI Integration
+- [x] YOLOv11 integration for sheet music detection
+  - [x] Model training pipeline
+  - [x] GPU-optimized inference
+  - [ ] Real-time detection API
 - [ ] Automated accompaniment
 - [ ] Style-based suggestions
 - [ ] Performance feedback
@@ -69,7 +73,7 @@
 
 ## System Architecture
 
-\`\`\`mermaid
+```mermaid
 graph TD
     subgraph Frontend
         UI[User Interface]
@@ -112,11 +116,11 @@ graph TD
     Export_Service --> File_Store
     Billing_Service --> Payment
     Group_Service --> Hardware
-\`\`\`
+```
 
 ## Domain Model
 
-\`\`\`mermaid
+```mermaid
 classDiagram
     class User {
         +String id
@@ -160,11 +164,11 @@ classDiagram
     GroupLicense "1" -- "*" User
     ProtectedFunction "*" -- "*" GroupLicense
     User "1" -- "*" AuthSession
-\`\`\`
+```
 
 ## Authorization Ontology
 
-\`\`\`mermaid
+```mermaid
 graph LR
     subgraph Functions
         Export[Export Score]
@@ -195,4 +199,3 @@ graph LR
     Teacher --> BLE
     Teacher --> Hardware
     Remote --> Database
-\`\`\`

@@ -14,6 +14,15 @@ maistro/
 └── tests/               # Test suite
 ```
 
+## Features
+
+- Real-time collaborative sheet music editing
+- Advanced sheet music detection using YOLOv11
+- GPU-accelerated inference for fast processing
+- Secure authentication and authorization
+- Export to various formats
+- Pay-per-export billing model
+
 ## Current Progress
 1. ✅ Project Setup
    - Repository structure
@@ -50,6 +59,27 @@ maistro/
    - Develop inference scripts
    - Create API endpoints
    - Build web interface
+
+## Model Training
+
+The sheet music detection model uses YOLOv11 and is trained on our custom dataset. To train the model:
+
+1. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+2. Configure your Roboflow API key in `.env`
+
+3. Train the model:
+```bash
+python model-training/scripts/train_model.py
+```
+
+The model is optimized for NVIDIA GPUs and uses:
+- Mixed precision training (FP16)
+- Image caching for faster training
+- Multi-threaded data loading
 
 ## Dependencies
 - Python 3.8+
