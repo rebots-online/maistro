@@ -1,0 +1,173 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id                String    @id @default(cuid())
+  email             String    @unique
+  name              String?
+  credits           Int       @default(0)
+  subscriptionTier  String?
+  subscriptionId    String?
+  subscriptionStatus String?
+  paymentProvider   String?
+  hardwareId        String?   // ID of the registered hardware device
+  hardwareType      String?   // Type of hardware (MIDI, Audio Interface, etc.)
+  hardwareMetadata  Json?     // Store additional hardware-specific data
+  scores            Score[]
+  exports           ScoreExport[]
+  annotations       Annotation[]
+  collaborations     ScoreCollaboration[]
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  // Group licensing relationships
+  ownedLicenses     GroupLicense[]    @relation("LicenseOwner")
+  memberships       GroupMembership[] 
+  authenticatedSessions GroupAuthSession[]
+}
+
+model Score {
+  id          String   @id @default(cuid())
+  title       String
+  content     Json     // Store the music notation data
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relationships
+  authorId    String
+  author      User     @relation(fields: [authorId], references: [id])
+  annotations Annotation[]
+  collaborators ScoreCollaboration[]
+  exports     ScoreExport[]
+  
+  @@index([authorId])
+}
+
+// Track exports and associated costs
+model ScoreExport {
+  id          String   @id @default(cuid())
+  format      String   // pdf, midi, mp3, etc.
+  cost        Int      // Number of credits used
+  createdAt   DateTime @default(now())
+  
+  // Relationships
+  scoreId     String
+  score       Score    @relation(fields: [scoreId], references: [id])
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  
+  @@index([scoreId])
+  @@index([userId])
+}
+
+model Annotation {
+  id        String   @id @default(cuid())
+  content   String   @db.Text
+  measure   Int      // Which measure this annotation belongs to
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relationships
+  scoreId   String
+  score     Score    @relation(fields: [scoreId], references: [id])
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id])
+  
+  @@index([scoreId])
+  @@index([authorId])
+}
+
+model ScoreCollaboration {
+  id        String   @id @default(cuid())
+  role      String   // viewer, editor, admin
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relationships
+  scoreId   String
+  score     Score    @relation(fields: [scoreId], references: [id])
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  
+  @@unique([scoreId, userId])
+  @@index([scoreId])
+  @@index([userId])
+}
+
+// Group licensing models
+model GroupLicense {
+  id          String    @id @default(cuid())
+  name        String
+  owner       User      @relation("LicenseOwner", fields: [ownerId], references: [id])
+  ownerId     String
+  maxSeats    Int
+  validUntil  DateTime
+  features    String[]
+  authType    String    // BLE, PROXIMITY, DATABASE, HYBRID
+  authConfig  Json      // Flexible configuration for different auth types
+
+  // Function-level authorization
+  protectedFunctions Json      // Map of functions to their requirements
+  functionOverrides  Json?     // Optional overrides for specific users
+
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  members     GroupMembership[]
+  sessions    GroupAuthSession[]
+}
+
+model GroupMembership {
+  id              String    @id @default(cuid())
+  user            User      @relation(fields: [userId], references: [id])
+  userId          String
+  license         GroupLicense @relation(fields: [licenseId], references: [id])
+  licenseId       String
+  role            String    // owner, member, assistant
+  joinedAt        DateTime  @default(now())
+  lastActive      DateTime  @updatedAt
+
+  @@unique([userId, licenseId])
+}
+
+model GroupAuthSession {
+  id              String    @id @default(cuid())
+  user            User      @relation(fields: [userId], references: [id])
+  userId          String
+  license         GroupLicense @relation(fields: [licenseId], references: [id])
+  licenseId       String
+  authMethod      String    // The method used for this session
+  startedAt       DateTime  @default(now())
+  expiresAt       DateTime
+  metadata        Json?     // Additional session data (e.g., location, device info)
+
+  // Function-level authorization
+  authorizedFunctions String[]  // List of functions authorized in this session
+  
+  @@index([userId, licenseId, expiresAt])
+}
+
+// Track billing events
+model BillingEvent {
+  id            String   @id @default(cuid())
+  userId        String
+  type          String   // credit.purchased, subscription.created, export.completed
+  provider      String   // polar, lightning
+  amount        Float?
+  currency      String?
+  credits       Int?     // Number of credits if credit purchase
+  metadata      Json?
+  createdAt     DateTime @default(now())
+  
+  @@index([userId])
+  @@index([type])
+}

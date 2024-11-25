@@ -1,0 +1,57 @@
+{
+  "name": "maistro",
+  "version": "0.1.0",
+  "private": true,
+  "author": "Robin L. M. Cheung",
+  "organization": "Robin L. M. Cheung, MBA",
+  "license": "GPL-3.0",
+  "homepage": "https://www.robin.bio",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rebots-online/maistro.git"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.6.0",
+    "@stripe/stripe-js": "^2.2.0",
+    "@tanstack/react-query": "^5.8.7",
+    "@tensorflow/tfjs-converter": "^4.22.0",
+    "@tensorflow/tfjs-node": "^4.22.0",
+    "@trpc/client": "^10.44.1",
+    "@trpc/next": "^10.44.1",
+    "@trpc/react-query": "^10.44.1",
+    "@trpc/server": "^10.44.1",
+    "@types/sharp": "^0.31.1",
+    "next": "^14.0.3",
+    "next-auth": "^4.24.5",
+    "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "^4.8.69",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sharp": "^0.33.5",
+    "tesseract.js": "^5.1.1",
+    "tone": "^14.7.77",
+    "ts-node": "^10.9.2",
+    "webmidi": "^3.1.7",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.17.7",
+    "@types/react": "^18.2.39",
+    "@types/react-dom": "^18.2.17",
+    "@typescript-eslint/eslint-plugin": "^6.13.1",
+    "@typescript-eslint/parser": "^6.13.1",
+    "autoprefixer": "^10.4.16",
+    "eslint": "^8.54.0",
+    "eslint-config-next": "14.0.3",
+    "postcss": "^8.4.31",
+    "prisma": "^5.6.0",
+    "tailwindcss": "^3.3.5",
+    "typescript": "^5.7.2"
+  }
+}

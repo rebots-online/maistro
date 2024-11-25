@@ -1,44 +1,97 @@
-# Maistro
+# Maistro - Optical Music Recognition (OMR) System
 
-An advanced web-based music notation and teaching platform, with special emphasis on piano pedagogy and analysis tools.
+## Project Overview
+Maistro is an advanced Optical Music Recognition (OMR) system that converts sheet music images into a digital format. The project uses deep learning and computer vision techniques to detect and classify musical elements.
 
-## Features
+## Project Structure
+```
+maistro/
+├── data-processing/      # Scripts for image preprocessing
+├── model-training/       # Model training and evaluation code
+│   ├── raw-data/        # Original sheet music images
+│   └── scripts/         # Training scripts
+├── docs/                # Documentation and diagrams
+└── tests/               # Test suite
+```
 
-- Web-based music notation viewer and editor
-- Advanced annotation system for teachers and students:
-  - Traditional markings (fingerings, dynamics, etc.)
-  - Interpretative annotations
-  - Motif highlighting system for contrapuntal analysis
-  - Harmonic analysis tools with chord-based coloring
-- Recording and playback capabilities
-- Real-time collaboration features
+## Current Progress
+1. ✅ Project Setup
+   - Repository structure
+   - Development environment
+   - Dependencies management
 
-## Technology Stack
+2. ✅ Data Collection
+   - Sheet music images gathered
+   - Preprocessing pipeline established
+   - Image quality verification
 
-- Frontend: React with TypeScript
-- Backend: Node.js with Express
-- Music Notation Engine: Custom WebAssembly port
-- Real-time Audio: Web Audio API
-- MIDI Support: Web MIDI API
-- Database: PostgreSQL
-- Real-time Updates: WebSocket
+3. ✅ Roboflow Integration
+   - Project setup: "sheet-music-omr"
+   - Dataset uploaded (155 images)
+   - Split ratios: 70% train, 20% test, 10% validation
 
-## Development
+4. 🔄 Model Development (In Progress)
+   - Object detection approach chosen
+   - Annotation process planning
+   - Training pipeline setup
 
-### Prerequisites
+## Next Steps
+1. Automated Annotation
+   - Implement automated annotation scripts
+   - Verify and correct annotations
+   - Export labeled dataset
 
-[To be added]
+2. Model Training
+   - Train initial object detection model
+   - Evaluate performance
+   - Iterate and improve
 
-### Setup
+3. Inference Pipeline
+   - Develop inference scripts
+   - Create API endpoints
+   - Build web interface
 
-[To be added]
+## Dependencies
+- Python 3.8+
+- Roboflow
+- OpenCV
+- PyTorch
+- Other requirements in `requirements.txt`
 
-## Contact
+## Setup Instructions
+1. Clone the repository
+```bash
+git clone https://github.com/yourusername/maistro.git
+cd maistro
+```
 
-- Website: www.robin.bio
-- Email: robin@robin.bio
+2. Install dependencies
+```bash
+pip install -r requirements.txt
+```
+
+3. Set up environment variables
+```bash
+cp .env.example .env
+# Edit .env with your API keys
+```
+
+## Usage
+1. Data Processing
+```bash
+python data-processing/preprocess_images.py
+```
+
+2. Model Training
+```bash
+python model-training/scripts/train.py
+```
+
+## Contributing
+Contributions are welcome! Please read our contributing guidelines and submit pull requests.
 
 ## License
+[Add your chosen license]
 
-Copyright (C) 2024 Robin L. M. Cheung
-Licensed under the GNU General Public License v3.0
+## Contact
+[Add your contact information]
