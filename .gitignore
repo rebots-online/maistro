@@ -40,6 +40,11 @@ model-training/checkpoints/
 *.onnx
 *.pt
 
+# Roboflow data
+model-training/annotated-data/
+roboflow-exports/
+roboflow-uploads/
+
 # OS
 .DS_Store
 Thumbs.db
