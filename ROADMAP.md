@@ -50,10 +50,11 @@
 ## Future Vision
 
 ### AI Integration
-- [x] YOLOv11 integration for sheet music detection
-  - [x] Model training pipeline
-  - [x] GPU-optimized inference
+- [x] YOLOv12 integration for sheet music detection
+  - [x] Model training pipeline with attention-based architecture
+  - [x] GPU-optimized inference with mixed precision
   - [ ] Real-time detection API
+  - [ ] Performance benchmarking against previous YOLO versions
 - [ ] Automated accompaniment
 - [ ] Style-based suggestions
 - [ ] Performance feedback
@@ -105,11 +106,11 @@ graph TD
     UI --> Auth
     UI --> Editor
     UI --> Player
-    
+
     Auth --> Auth_Service
     Editor --> Score_Service
     Player --> Score_Service
-    
+
     Auth_Service --> DB
     Score_Service --> DB
     Score_Service --> File_Store

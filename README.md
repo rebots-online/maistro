@@ -17,7 +17,7 @@ maistro/
 ## Features
 
 - Real-time collaborative sheet music editing
-- Advanced sheet music detection using YOLOv11
+- Advanced sheet music detection using YOLOv12 (state-of-the-art object detection)
 - GPU-accelerated inference for fast processing
 - Secure authentication and authorization
 - Export to various formats
@@ -40,9 +40,9 @@ maistro/
    - Split ratios: 70% train, 20% test, 10% validation
 
 4. 🔄 Model Development (In Progress)
-   - Object detection approach chosen
+   - YOLOv12 object detection approach chosen for superior accuracy
    - Annotation process planning
-   - Training pipeline setup
+   - Training pipeline setup with GPU optimization
 
 ## Next Steps
 1. Automated Annotation
@@ -62,7 +62,7 @@ maistro/
 
 ## Model Training
 
-The sheet music detection model uses YOLOv11 and is trained on our custom dataset. To train the model:
+The sheet music detection model uses YOLOv12, the latest state-of-the-art object detection model, and is trained on our custom dataset. YOLOv12 offers significant improvements over previous versions, including better accuracy for small objects like musical notation and faster inference speeds. To train the model:
 
 1. Install dependencies:
 ```bash
